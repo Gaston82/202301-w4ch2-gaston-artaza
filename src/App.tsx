@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Form from "./components/Form/Form";
+import { getRandomGifs } from "./services";
 
 const App = () => {
-  const handleCategory = (text: string) => {
-    return text;
+  const [category, setCategory] = useState("");
+  const [gifs, setGifs] = useState([]);
+
+  useEffect(() => {
+    const fetchGifs = async () => {
+      const result = await getRandomGifs();
+      setGifs(result);
+    };
+    fetchGifs();
+  }, []);
+
+  const handleCategory = (query: string) => {
+    setCategory(query);
   };
 
   return (
